@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - Page Insight Tool</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Page Insight Tool</h1>
+            <a href="/" class="btn-back">← Back to Analyzer</a>
+        </header>
+
+        <main>
+            {{if .Error}}
+                <div class="error-box">
+                    <h2>Error Analyzing Page</h2>
+                    <p class="error-message">{{ .Error }}</p>
+                    {{if .StatusCode}}
+                        <p class="error-status">HTTP Status Code: {{ .StatusCode }}</p>
+                    {{end}}
+                    <p class="error-url">URL: <code>{{ .URL }}</code></p>
+                </div>
+            {{else}}
+                <div class="results-container">
+                    <div class="result-section">
+                        <h2>Page Information</h2>
+                        <div class="result-item">
+                            <span class="label">URL:</span>
+                            <span class="value"><code>{{ .URL }}</code></span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Title:</span>
+                            <span class="value">{{ if .Title }}{{ .Title }}{{ else }}<em>No title found</em>{{ end }}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">HTML Version:</span>
+                            <span class="value">{{ .HTMLVersion }}</span>
+                        </div>
+                    </div>
+
+                    <div class="result-section">
+                        <h2>Headings</h2>
+                        <div class="headings-grid">
+                            <div class="heading-item">
+                                <span class="heading-level">H1</span>
+                                <span class="heading-count">{{ index .Headings 1 }}</span>
+                            </div>
+                            <div class="heading-item">
+                                <span class="heading-level">H2</span>
+                                <span class="heading-count">{{ index .Headings 2 }}</span>
+                            </div>
+                            <div class="heading-item">
+                                <span class="heading-level">H3</span>
+                                <span class="heading-count">{{ index .Headings 3 }}</span>
+                            </div>
+                            <div class="heading-item">
+                                <span class="heading-level">H4</span>
+                                <span class="heading-count">{{ index .Headings 4 }}</span>
+                            </div>
+                            <div class="heading-item">
+                                <span class="heading-level">H5</span>
+                                <span class="heading-count">{{ index .Headings 5 }}</span>
+                            </div>
+                            <div class="heading-item">
+                                <span class="heading-level">H6</span>
+                                <span class="heading-count">{{ index .Headings 6 }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-section">
+                        <h2>Links Analysis</h2>
+                        <div class="links-grid">
+                            <div class="link-item internal">
+                                <span class="link-label">Internal Links</span>
+                                <span class="link-count">{{ .InternalLinks }}</span>
+                            </div>
+                            <div class="link-item external">
+                                <span class="link-label">External Links</span>
+                                <span class="link-count">{{ .ExternalLinks }}</span>
+                            </div>
+                            <div class="link-item inaccessible">
+                                <span class="link-label">Inaccessible Links</span>
+                                <span class="link-count">{{ .InaccessibleLinks }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-section">
+                        <h2>Security</h2>
+                        <div class="security-item">
+                            <span class="label">Contains Login Form:</span>
+                            <span class="value {{if .HasLoginForm}}warning{{else}}safe{{end}}">
+                                {{if .HasLoginForm}}✓ Yes{{else}}✗ No{{end}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="/" class="btn-primary">Analyze Another Page</a>
+                </div>
+            {{end}}
+        </main>
+    </div>
+</body>
+</html>

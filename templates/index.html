@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Insight Tool</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Page Insight Tool</h1>
+            <p class="subtitle">Analyze any web page and extract key insights</p>
+        </header>
+
+        <main>
+            <form action="/analyze" method="POST" class="analysis-form">
+                <div class="form-group">
+                    <label for="url">Enter URL:</label>
+                    <input
+                        type="url"
+                        id="url"
+                        name="url"
+                        placeholder="https://example.com"
+                        required
+                        autofocus
+                    >
+                </div>
+                <button type="submit" class="btn-submit">Analyze Page</button>
+            </form>
+
+            <div class="info-box">
+                <h3>What this tool does:</h3>
+                <ul>
+                    <li>Detects HTML version of the page</li>
+                    <li>Extracts page title</li>
+                    <li>Counts headings (h1-h6)</li>
+                    <li>Analyzes internal and external links</li>
+                    <li>Identifies inaccessible links</li>
+                    <li>Detects login forms</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
